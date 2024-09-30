@@ -7,6 +7,7 @@ Get it on the Chrome Web Store at https://chrome.google.com/webstore/detail/hkgf
 <img src="https://raw.githubusercontent.com/beaufortfrancois/picture-in-picture-chrome-extension/master/screenshot.png">
 <img src="https://github.com/user-attachments/assets/f5b7c392-fdfa-45a6-a837-167f1e81abd6">
 
+origin repository -> [picture-in-picture-chrome-extension](https://github.com/GoogleChromeLabs/picture-in-picture-chrome-extension)
 
 ## New in this custom release
 
