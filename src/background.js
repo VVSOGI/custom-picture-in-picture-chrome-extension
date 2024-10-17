@@ -11,14 +11,24 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 let usingVideoTabId;
+
+function loadUsingVideoTabId() {
+  chrome.storage.local.get(["usingVideoTabId"], (result) => {
+    usingVideoTabId = result.usingVideoTabId;
+  });
+}
+
+loadUsingVideoTabId();
 
 chrome.action.onClicked.addListener((tab) => {
   chrome.storage.sync.get({ optOutAnalytics: false }, () => {
-    const isHaveYoutube = tab.url.split(".").find((item) => item === "youtube");
-    if (isHaveYoutube) {
+    const youtubeVideo = tab.url.split(".").find((item) => item === "youtube");
+    if (youtubeVideo) {
       usingVideoTabId = tab.id;
       const files = ["script.js"];
+      chrome.storage.local.set({ usingVideoTabId: tab.id });
       chrome.scripting.executeScript({
         target: { tabId: tab.id, allFrames: true },
         world: "MAIN",
@@ -32,6 +42,7 @@ chrome.commands.onCommand.addListener((command) => {
   switch (command) {
     case "switch":
       chrome.tabs.query({ active: true, currentWindow: true }, () => {
+        loadUsingVideoTabId();
         if (usingVideoTabId) {
           const files = ["script.js"];
           chrome.scripting.executeScript({
