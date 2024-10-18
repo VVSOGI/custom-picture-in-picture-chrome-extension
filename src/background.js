@@ -20,10 +20,9 @@ function loadUsingVideoTabId() {
   });
 }
 
-loadUsingVideoTabId();
-
 chrome.action.onClicked.addListener((tab) => {
   chrome.storage.sync.get({ optOutAnalytics: false }, () => {
+    if (!tab.url) return;
     const youtubeVideo = tab.url.split(".").find((item) => item === "youtube");
     if (youtubeVideo) {
       usingVideoTabId = tab.id;
