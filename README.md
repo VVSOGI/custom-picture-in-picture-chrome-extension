@@ -1,4 +1,4 @@
-# Custom-Picture-in-Picture Chrome Extension
+# Picture-in-Picture-From-Korea Chrome Extension
 
 A simple Chrome Extension to demonstrate the [Picture-in-Picture Web API](https://wicg.github.io/picture-in-picture/) in Chrome.
 
@@ -11,7 +11,7 @@ origin repository -> [picture-in-picture-chrome-extension](https://github.com/Go
 
 ## New in this custom release
 
-The existing picture-in-picture-chrome-extension can only be switched on the tab where the initial video was played in PIP mode, but the custom-picture-in-picture-chrome-extension can switch PIP videos on other tabs using shortcuts.
+The existing picture-in-picture-chrome-extension can only be switched on the tab where the initial video was played in PIP mode, but the Picture-in-Picture-From-Korea can switch PIP videos on other tabs using shortcuts.
 
 ## Configuration
 
