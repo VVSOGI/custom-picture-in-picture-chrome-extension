@@ -25,14 +25,7 @@ The keyboard shortcut
         "chromeos": "Alt+P",
         "linux": "Alt+P"
       }
-    }, // default utils
-    "switch": {
-      "suggested_key": {
-        "default": "Alt+Shift+1",
-        "mac": "Command+Shift+1"
-      },
-      "description": "Test 1"
-    } // New in this release
+    },
 ```
 
 The keyboard shortcut can be changed on the
