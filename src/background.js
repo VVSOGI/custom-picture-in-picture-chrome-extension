@@ -20,37 +20,28 @@ function loadUsingVideoTabId() {
   });
 }
 
+function executeScript(tabId) {
+  chrome.scripting.executeScript({
+    target: { tabId, allFrames: true },
+    world: "MAIN",
+    files: ["script.js"],
+  });
+}
+
 chrome.action.onClicked.addListener((tab) => {
   chrome.storage.sync.get({ optOutAnalytics: false }, () => {
-    if (!tab.url) return;
-    const youtubeVideo = tab.url.split(".").find((item) => item === "youtube");
+    if (usingVideoTabId) {
+      executeScript(usingVideoTabId);
+    }
+
+    const currentTab = tab.url;
+    const youtubeVideo = currentTab && currentTab.split(".").find((item) => item === "youtube");
+
     if (youtubeVideo) {
-      usingVideoTabId = tab.id;
-      const files = ["script.js"];
       chrome.storage.local.set({ usingVideoTabId: tab.id });
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id, allFrames: true },
-        world: "MAIN",
-        files,
-      });
+      executeScript(tab.id);
     }
   });
 });
 
-chrome.commands.onCommand.addListener((command) => {
-  switch (command) {
-    case "switch":
-      chrome.tabs.query({ active: true, currentWindow: true }, () => {
-        loadUsingVideoTabId();
-        if (usingVideoTabId) {
-          const files = ["script.js"];
-          chrome.scripting.executeScript({
-            target: { tabId: usingVideoTabId },
-            world: "MAIN",
-            files,
-          });
-        }
-      });
-      break;
-  }
-});
+loadUsingVideoTabId();
