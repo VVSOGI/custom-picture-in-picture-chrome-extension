@@ -24,7 +24,7 @@
       }
     }
   },
-  "permissions": ["scripting", "storage"],
+  "permissions": ["scripting", "storage", "tabs"],
   "host_permissions": ["<all_urls>"],
   "manifest_version": 3
 }

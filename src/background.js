@@ -14,9 +14,29 @@
 
 let usingVideoTabId;
 
+function checkTabExistence(tabId, callback) {
+  chrome.tabs.get(tabId, () => {
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError.message);
+      callback(false);
+    } else {
+      callback(true);
+    }
+  });
+}
+
 function loadUsingVideoTabId() {
   chrome.storage.local.get(["usingVideoTabId"], (result) => {
-    usingVideoTabId = result.usingVideoTabId;
+    if (result.usingVideoTabId) {
+      checkTabExistence(result.usingVideoTabId, (exists) => {
+        if (exists) {
+          usingVideoTabId = result.usingVideoTabId;
+        } else {
+          console.log("Previous video tab no longer exists");
+          chrome.storage.local.remove("usingVideoTabId");
+        }
+      });
+    }
   });
 }
 
@@ -38,8 +58,9 @@ chrome.action.onClicked.addListener((tab) => {
     const youtubeVideo = currentTab && currentTab.split(".").find((item) => item === "youtube");
 
     if (youtubeVideo) {
-      chrome.storage.local.set({ usingVideoTabId: tab.id });
-      executeScript(tab.id);
+      usingVideoTabId = tab.id;
+      chrome.storage.local.set({ usingVideoTabId });
+      executeScript(usingVideoTabId);
     }
   });
 });
